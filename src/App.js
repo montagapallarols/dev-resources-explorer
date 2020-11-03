@@ -5,7 +5,8 @@ import NumOfResources from "./components/NumOfResources";
 import { useSelector } from "react-redux";
 import { selectResources } from "./store/resources/selectors";
 import { selectDevelopers } from "./store/developers/selectors";
-import { selectDevelopersWithFavorite } from "./store/developers/selectors"
+import { selectDevelopersWithFavorite } from "./store/developers/selectors";
+import { selectDevelopersFavoritesResources } from "./store/developers/selectors";
 
 
 
@@ -18,15 +19,18 @@ function App() {
 
   const [ favoriteId, setFavoriteId ] = useState(1)
   // console.log("SELECT OPTION", selectOption)
+  const [ developerId, setDeveloperId ] = useState(1)
+  
 
   const developersWithFavorite = useSelector(selectDevelopersWithFavorite(favoriteId))
   console.log("Devs with favorite", developersWithFavorite)
-  
-  
-  // const developersWithThisFavorite = developers.filter(developer => {
-  //   return developer.favorites.includes(favoriteId)
-  // })
 
+  const favoriteResources = useSelector(
+    selectDevelopersFavoritesResources(developerId)
+  );
+  
+  console.log("FAVOURITE RESOURCES", favoriteResources)
+ 
 
 
   return (
@@ -47,6 +51,19 @@ function App() {
          return <li>{developer.name}</li>
        })}
        </ul>
+
+      <h3>What are 
+        <select value={developerId} onChange={event => setDeveloperId(parseInt(event.target.value))}>
+          {developers.map(developer => {
+            return <option value={developer.id} key={developer.id}>{developer.name}</option>
+          })}
+        </select>
+      's favourites?</h3>
+      <ul>
+      {favoriteResources.map(resource => {
+              return <li key={resource.id}>{resource.name}</li>;
+            })}
+      </ul>
     </div>
   );
 }
