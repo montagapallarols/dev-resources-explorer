@@ -45,6 +45,17 @@ const initialState = [
   
   export default function reducer(state = initialState, action) {
     switch (action.type) {
+      case "ADD_RESOURCE": {
+        return [
+          ...state,
+          {
+            id: action.payload.id,
+            name: action.payload.name,
+            type: action.payload.type,
+            url: action.payload.url
+          }
+        ]
+      }
       default: {
         return state;
       }
