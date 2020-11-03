@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { selectResources } from "./store/resources/selectors";
 import { selectDevelopers } from "./store/developers/selectors";
 import { selectDevelopersWithFavorite } from "./store/developers/selectors";
-import { selectDevelopersFavoritesResources } from "./store/developers/selectors";
+import { selectDevelopersFavoritesResources } from "./store/selectors";
+import { selectLoggedinUser } from "./store/selectors"
 
 
 
@@ -31,10 +32,15 @@ function App() {
   
   console.log("FAVOURITE RESOURCES", favoriteResources)
  
+  const loggedInUserName = useSelector(selectLoggedinUser)
+  console.log("LOGGED IN USER", loggedInUserName)
 
 
   return (
     <div className="App">
+      <header>
+  <p>Welcome back, <strong>{loggedInUserName}</strong>!</p>
+      </header>
       <h1>Web development resources</h1>
       <NumOfDevelopers/> 
       <NumOfResources/>
