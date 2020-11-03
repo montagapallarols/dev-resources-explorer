@@ -5,6 +5,7 @@ import NumOfResources from "./components/NumOfResources";
 import { useSelector } from "react-redux";
 import { selectResources } from "./store/resources/selectors";
 import { selectDevelopers } from "./store/developers/selectors";
+import { selectDevelopersWithFavorite } from "./store/developers/selectors"
 
 
 
@@ -18,9 +19,13 @@ function App() {
   const [ favoriteId, setFavoriteId ] = useState(1)
   // console.log("SELECT OPTION", selectOption)
 
-  const filteredDevelopers = developers.filter(developer => {
-    return developer.favorites.includes(favoriteId)
-  })
+  const developersWithFavorite = useSelector(selectDevelopersWithFavorite(favoriteId))
+  console.log("Devs with favorite", developersWithFavorite)
+  
+  
+  // const developersWithThisFavorite = developers.filter(developer => {
+  //   return developer.favorites.includes(favoriteId)
+  // })
 
 
 
@@ -38,7 +43,7 @@ function App() {
       </select> ?
       </h3>
       <ul>
-       {filteredDevelopers.map(developer => {
+       {developersWithFavorite.map(developer => {
          return <li>{developer.name}</li>
        })}
        </ul>

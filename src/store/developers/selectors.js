@@ -5,6 +5,12 @@ function average(numbers) {
   export const selectDevelopers = (state) => {
     return state.developers;
   };
+
+  export const selectDevelopersWithFavorite = (favoriteId) => {
+    return (state) => {
+      return state.developers.filter((dev) => dev.favorites.includes(favoriteId));
+    };
+  };
   
   export const selectDeveloperStatistics = (state) => {
     return {
