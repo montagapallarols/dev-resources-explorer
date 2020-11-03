@@ -8,6 +8,7 @@ import { selectDevelopers } from "./store/developers/selectors";
 import { selectDevelopersWithFavorite } from "./store/developers/selectors";
 import { selectDevelopersFavoritesResources } from "./store/selectors";
 import { selectLoggedinUser } from "./store/selectors"
+import ResourcesSection from "./components/ResourcesSection";
 
 
 
@@ -70,6 +71,7 @@ function App() {
               return <li key={resource.id}>{resource.name}</li>;
             })}
       </ul>
+      <ResourcesSection/>
     </div>
   );
 }
