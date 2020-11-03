@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+import React, { useState } from "react"
 import './App.css';
+import NumOfDevelopers from "./components/NumOfDevelopers";
+import NumOfResources from "./components/NumOfResources";
+import { useSelector } from "react-redux";
+import { selectResources } from "./store/resources/selectors";
+import { selectDevelopers } from "./store/developers/selectors";
+
+
+
 
 function App() {
+  const resources = useSelector(selectResources)
+  console.log("RESOURCES", resources)
+
+  const developers = useSelector(selectDevelopers)
+
+  const [ favoriteId, setFavoriteId ] = useState(1)
+  // console.log("SELECT OPTION", selectOption)
+
+  const filteredDevelopers = developers.filter(developer => {
+    return developer.favorites.includes(favoriteId)
+  })
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Web development resources</h1>
+      <NumOfDevelopers/> 
+      <NumOfResources/>
+      <h3>Who likes 
+      <select name="resources" value={favoriteId} onChange={event => setFavoriteId(parseInt(event.target.value))}>
+        {resources.map(resource => {
+          return <option value={resource.id} key={resource.id}>{resource.name}</option>
+        })}
+  
+      </select> ?
+      </h3>
+      <ul>
+       {filteredDevelopers.map(developer => {
+         return <li>{developer.name}</li>
+       })}
+       </ul>
     </div>
   );
 }
